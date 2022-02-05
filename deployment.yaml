@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gin-demo
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: gin-demo
+  replicas: 3
+  revisionHistoryLimit: 1
+  template:
+    metadata:
+      labels:
+        app: gin-demo
+    spec:
+      containers:
+        - name: gin-demo
+          image: ghcr.io/kwanok/gin-app:latest
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: 500m
+              memory: 200Mi
+          ports:
+            - containerPort: 3000
